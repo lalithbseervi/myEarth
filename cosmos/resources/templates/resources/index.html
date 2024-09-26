@@ -1,0 +1,200 @@
+{% extends 'resources/base.html' %}
+    {% load static %}
+    {% block title %} Homepage | {% endblock %}
+    {% block head %}
+    <style>
+        :root {
+            --primary-col: #254336;
+            --contrast-primary-col: #DAD3BE;
+            --sec-col: #6B8A7A;
+            --bg-col: #2a2d34;
+            --text-col: #050315;
+            --text: #fbfbfe;
+            --bg-col-shade: #adab8f;
+            /* #2a4d69, #2a2d34 */
+        }
+
+        body {
+            background-color: var(--bg-col);
+            overflow-x: hidden;
+            animation: fadeIn ease 2.5s;
+            animation-iteration-count: 1;
+            animation-fill-mode: both;
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .text-col-black {
+            color: var(--text-col);
+        }
+
+        .primary-col {
+            color: var(--primary-col);
+        }
+
+        .bg-primary-col {
+            background-color: var(--primary-col);
+        }
+
+        a.effect {
+            background-position-y: -0%;
+            background-image: linear-gradient(180deg, transparent 50%, var(--text-col) 50%) !important;
+            transition: all 0.1s ease;
+            background-size: 2px;
+            background-size: auto 190%;
+            padding: 3px 0;
+        }
+
+        a.effect:hover {
+            background-position-y: 5%;
+            transition: all 0.1s ease;
+        }
+
+        #parent {
+            transition: margin-left 1s ease-out;
+            overflow-x: scorll;
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.js.iife.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/driver.js@1.0.1/dist/driver.css"/>
+    {% endblock %}
+    {% block body %}
+        <div id="parent" class="sm:ml-0 md:ml-64">
+            <div class="flex mt-16">
+                <h2 class="libre-baskerville-regular text-green-400 text-4xl md:text-5xl p-2 flex self-start"> Introducing myEarth, A Collaborative Initiative </h2>
+            </div>
+
+            <main class="mt-4 py-8 bg-gray-700 text-white rounded-lg md:mr-4">
+                <div class="container mx-auto px-4 md:px-0">
+                    <section class="mb-8 p-6 bg-gray-800 text-gray-900 rounded-lg shadow-lg">
+                        <h2 class="text-2xl mb-4 text-green-600">Our Vision</h2>
+                        <p class="text-base text-white mb-4">
+                            myEarth is an innovative platform designed to empower individuals from all corners of the globe to actively engage in addressing environmental challenges. By providing a space for users to share resources, insights, and practical solutions, myEarth aims to raise awareness about pressing environmental issues and foster collective action.
+                        </p>
+                    </section>
+
+                    <section class="mb-8 p-6 bg-gray-800 text-gray-900 rounded-lg shadow-lg">
+                        <h2 class="text-2xl mb-4 text-green-600">What do we do?</h2>
+                        <ul class="list-disc pl-5 space-y-2 text-white">
+                            <li>
+                                <p class="text-lg text-green-600">Resource Sharing:</p> Users can upload and access a wealth of information, including articles, research papers, best practices, and DIY guides. This collective repository helps users stay informed about current environmental challenges and discover actionable ways to make a positive impact.
+                            </li>
+                            <li>
+                                <p class="text-lg text-green-600">Interactive Forums:</p> At the heart of myEarth is our dynamic forum, where users can discuss a wide array of environmental topics. This space promotes meaningful dialogue, enabling individuals to exchange ideas, share personal experiences, and collaborate on innovative solutions. We hope that this will strengthen social unity and promote collaboration across disciplines of study.
+                            </li>
+                            <li>
+                                <p class="text-lg text-green-600">Community Engagement:</p> myEarth fosters a sense of global community by connecting like-minded individuals who are passionate about environmental issues. Through collaborative projects, challenges, and discussions, users can work together to implement sustainable practices and drive change.
+                            </li>
+                            <li>
+                                <p class="text-lg text-green-600">Educational Resources:</p> The platform also provides educational materials and expert insights to help users deepen their understanding of environmental issues and the impact of their actions.
+                            </li>
+                        </ul>
+                    </section>
+
+                    <section class="p-6 bg-gray-800 text-gray-900 rounded-lg shadow-lg">
+                        <p class="text-base text-white">
+                            By combining these features, myEarth seeks to create a collaborative space where individuals are not only informed but also empowered to take meaningful action. Our goal is to build a global network of environmentally conscious citizens who are committed to making a difference and working together towards a sustainable future.
+                        </p>
+                    </section>
+                </div>
+            </main>
+    </div>
+    <footer class="text-gray-500 py-6 mt-4">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2024 myEarth. All rights reserved.</p>
+        </div>
+    </footer>
+    {% block scripts %}
+        <script>
+            if(window.screen.width > 768) {
+                document.addEventListener('DOMContentLoaded', () => {
+                    const parent = document.getElementById('parent');
+                    const nav = document.getElementById('logo-sidebar');
+                    console.log(parent.classList);
+
+                    document.getElementById('navbar-toggle').addEventListener('click', function() {
+                        if(nav.classList.contains('sidebar-collapsed')) {
+                            parent.classList.replace('md:ml-64', 'md:ml-24');
+                        }
+                        else {
+                            parent.classList.replace('md:ml-24', 'md:ml-64');
+                        }
+                    })
+                })
+            }
+            else {
+                document.getElementById('parent').classList.replace('md:ml-64', 'ml-0');
+            }
+        </script>
+        <script>
+            if (!localStorage.getItem('hasVisited')) {
+                const driver = window.driver.js.driver;
+                const sidebar = document.querySelector('#logo-sidebar');
+                sidebar.classList.toggle('translate-x-full');
+
+                const driverObj = driver({
+                    animated: false,
+                    showProgress: true,
+                    showButtons: ['next', 'previous', 'close'],
+                    steps: [
+                        {
+                            popover: {
+                                title: 'Welcome to myEarth!',
+                                description: 'Hey there!\nWe recommend you take this small tour of ours!'
+                            }
+                        },
+                        {
+                            element: '#resources',
+                            popover: {
+                                title: 'Resources Page',
+                                description: 'Here, you can access various guides, reports, and resources regarding sustainability.',
+                            }
+                        },
+                        {
+                            element: '#forum',
+                            popover: {
+                                title: 'Our Forum',
+                                description: 'Our forum page enables collaboration across various disciplines. Ask away, you never know what you may learn!',
+                            },
+                        },
+                        {
+                            element: '#submission-link',
+                            popover: {
+                                title: 'Submit A Resource!', description: 'We encourage all our users to share their knowledge and help each other learn about sustainable lifestyles.',
+                            }
+                        },
+                        {
+                            element: '#register',
+                            popover: {
+                                title: 'Create an account!', description: 'Enlighten us!\nCreate an account and share your thoughts and knowledge with us. Together, we can preserve nature and its beauty!',
+                            }
+                        },
+                        { popover: { title: 'Thank You!', description: 'We appreciate that you took time to go through this small tour of ours!\nWe hope you get to learn something new!' } }
+                    ]
+                });
+
+                driverObj.drive();
+
+                localStorage.setItem('hasVisited', 'true');
+
+                sidebar.classList.toggle('-translate-x-full');
+                const checkIfDone = setInterval(() => {
+                    if (driverObj.isActive()) {
+                        console.log('active');
+                    } else {
+                        clearInterval(checkIfDone);
+                        sidebar.classList.toggle('-translate-x-full');
+                        sidebar.classList.toggle('translate-x-0');
+                    }
+                }, 500);
+            }
+        </script>
+    {% endblock %}
+    {% endblock %}

@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+    {% block title %} Forum Rules {% endblock %}
+    {% block head %}
+        <link rel="stylesheet" href="{% static 'posts/css/rules.css' %}">
+        <style>
+            .mt-c {
+                margin-top: 5rem;
+            }
+            @media (min-width: 768px) {
+                .md\:mt-6 {
+                    margin-top: 5rem;
+                    margin-left: 15.5rem;
+                }
+            }
+        </style>
+    {% endblock %}
+    {% block content %}
+    <div class="def-list p-4 ml-2 mt-c md:mt-6 md:ml-4 text-neutral-200 bg-[#0d1117] rounded-lg w-11/12 md:w-9/12">
+        <h2>Community Guidelines</h2>
+        <dl>
+            <dt>1. Spam / Advertising / Self-Promotion are strictly prohibited.</dt>
+            <dd>Anything that is considered to be unsolicited advertisement of goods, services, and/or other websites, or other media that is unrelated will be subject to action.</dd>
+            <dt class="mt-2">2. Offensive, Profane, Discriminatory Content</dt>
+            <dd>Any material posted by you, if found to be offensive, profance, discriminatory, derogatory, or otherwise unruly will not be tolerated on the platform. Offenders may be permanently blocked or reported to the concerned authorities.</dd>
+            <dt class="mt-2">3. Malicious intent</dt>
+            <dd>Any material posted by you, if found to be malicious, will be taken down immediately and the account will be permanently blocked.</dd>
+            <dt class="mt-2">4. Unrelated Content</dt>
+            <dd>Any post or comment that is unrelated to environmental sustainability and sustainable lifestyle will also be removed.</dd>
+            <dt class="mt-2">Note: Moderator Privileges</dt>
+            <dd>Moderators have the right to remove any post or comment that violates any of the above rules.</dd>
+        </dl>
+
+        <h2 class="mt-4">Tips on posting:</h2>
+        <dl>
+            <dt>1. Concise and To-the-point Title</dt>
+            <dd>Kindly ensure that your title gives an overview of your discussion/issue/topic and that it isn't too lengthy.</dd>
+            <dt class="mt-2">2. Description</dt>
+            <dd>The description should ideally explain what you'd like to discuss and give a clear outline as to what you hope to achieve from the discussion.</dd>
+        </dl>
+    </div>
+    {% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %} Posts {% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{% static 'posts/css/list.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="w-9/12 mt-20 sm:w-3/4 mx-auto">
+        <form action="" method="get" class="flex mt-4">
+            <div class="flex-1">
+                <div class="relative">
+                    <input class="border rounded w-full py-2 px-4" type="text" name="q" placeholder="Search posts" value="{{ request.GET.q }}" />
+                    <button class="absolute right-0 top-0 bg-sec-col text-white px-4 py-[0.57rem] rounded" type="submit">Search <i class="fa fa-search"></i></button>
+                </div>
+            </div>
+        </form>
+        {% if user.is_authenticated %}
+            <form action="create/" method="get" class="w-3/4 md:w-full flex mt-2">
+                <button type="submit" class="bg-sec-col text-white px-4 py-2 rounded">Ask a question.</button>
+            </form>
+        {% endif %}
+        <p class="mt-2"><a href="{% url 'rules' %}" class="text-blue-500 underline">Kindly refer the guidelines before posting!</a></p>
+    </div>
+    <div class="w-9/12 sm:w-3/4 mx-auto">
+        {% for obj in object_list %}
+            <div class="my-4 p-4 border border-gray-300 rounded shadow">
+                <div>
+                    {% if obj.draft %}<h3 class="text-red-500">Staff only: Draft</h3>{% endif %}
+                    <h3 class="text-neutral-200 text-xl font-bold"><a href="{{ obj.get_absolute_url }}" class="underline">{{ obj.title }}</a> <small class="text-gray-400">{{ obj.publish }}</small></h3>
+                    <div class="text-gray-400">
+                        {% if obj.user %}
+                            Asked by: <a href="/profile/{{ obj.user }}" class="underline" target="_blank">{{ obj.user }}</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+
+        <div class="flex justify-between items-center mt-8">
+            <span class="text-gray-600">
+                {% if object_list.has_previous %}
+                    <a href="?{{ page_request_var }}={{ object_list.previous_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="text-blue-500 hover:underline">Previous</a>
+                {% endif %}
+            </span>
+
+            <span class="text-gray-600">
+                Page {{ object_list.number }} of {{ object_list.paginator.num_pages }}.
+            </span>
+
+            <span class="text-gray-600">
+                {% if object_list.has_next %}
+                    <a href="?{{ page_request_var }}={{ object_list.next_page_number }}{% if request.GET.q %}&q={{ request.GET.q }}{% endif %}" class="text-blue-500 hover:underline">Next</a>
+                {% endif %}
+            </span>
+        </div>
+    </div>
+    {% block scripts %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                if(window.screen.width <= 500) {
+                    document.body.classList.add('px-3');
+                }
+            })
+        </script>
+    {% endblock %}
+{% endblock %}

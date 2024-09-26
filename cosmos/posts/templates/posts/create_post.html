@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Create Post | myEarth </title>
+    {{ form.media }}
+    <style>
+        input.textinput {
+            background-color: var(--primary-col);
+            color: var(--text);
+        }
+
+        @media only screen and (max-width: 440px) {
+            input[name='title'] {
+                width: 20rem;
+            }
+        }
+
+        @media only screen and (max-width: 600px) {
+            input[name='title'] {
+                width: 23rem;
+            }
+        }
+
+        @media only screen and (min-width: 700px) {
+            .md\:w-9/\12 {
+                width: 86.666%;
+            }
+        }
+
+        @media only screen and (min-width: 900px) {
+            input[name='title'] {
+                min-width: 45rem;
+            }
+        }
+
+        @media only screen and (min-width: 1024px) {
+            input[name='title'] {
+                min-width: 50rem;
+            }
+        }
+
+        form > label.block {
+            color: white;
+        }
+
+        input[type=submit] {
+            cursor: pointer;
+        }
+        :root {
+            --primary-col: #254336;
+            --label-col: #232218;
+            --bg-col: #2a2d34;
+            --text-col: #050315;
+            --text: #fbfbfe;
+            --bg-col-shade: #adab8f;
+            --contrast-primary-col: #DAD3BE;
+            --sec-col: #6B8A7A;
+            --nav-col: #0d1117;
+        }
+
+        body {
+            background-color: var(--bg-col);
+            padding-left: 0.5rem;
+            padding-right: 0.5rem;
+        }
+
+        .bg-contrast-col {
+            background-color: var(--contrast-primary-col);
+        }
+
+        .bg-sec-col {
+            background-color: var(--sec-col);
+        }
+
+        .bg-col {
+            background-color: var(--nav-col);
+        }
+
+        .bg-contrast-col {
+            background-color: var(--contrast-primary-col);
+        }
+
+        .text-white-shade {
+            color: var(--text);
+        }
+
+        .sidebar-collapsed {
+            width: 3.4em;
+        }
+        .mt-20 {
+            margin-top: 5rem;
+        }
+    </style>
+    <link rel="stylesheet" href="{% static 'posts/css/create_post.css' %}">
+</head>
+<body>
+    {% load crispy_forms_tags %}
+    <h1 class="p-2 md:p-4 text-semibold text-2xl text-neutral-100 md:ml-18-rem">Ask Away!</h1>
+
+    <form action="" method="post" enctype="multipart/form-data" class="p-2 md:ml-18-rem mr-4 rounded-lg md:w-9/12 max-w-xs h-full max-h-screen flex flex-col items-center justify-center m-auto font-helvetica">
+        {% crispy form %}
+    </form>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            var labels = document.getElementsByTagName('label');
+            for (var i = 0; i < labels.length; i++) {
+                labels[i].style.color = 'white';
+            }
+        })
+    </script>
+</body>

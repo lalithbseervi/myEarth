@@ -1,0 +1,113 @@
+{% extends 'resources/base.html' %}
+{% load static %}
+    {% block title %} Resources | {% endblock %}
+    {% block head %}
+        <style>
+            table {
+                border-collapse: collapse;
+                color: #fbfbfe;
+                overflow-x: scroll;
+            }
+
+            th, td {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            th.description, td.description {
+                max-width: 18rem;
+            }
+
+            th.title, td.title {
+                max-width: 9rem;
+            }
+
+            @media only screen and (min-device-width: 320px) and (max-device-width: 640px) {
+                th.description, td.description {
+                    min-width: 7rem;
+                    max-width: 9rem;
+                }
+
+                th.title, td.title {
+                    max-width: max-content;
+                }
+            }
+
+            th {
+                background-color: #0d1117;
+            }
+
+            tr:nth-child(even) {
+                background-color: #0d1117;
+            }
+
+            tr:nth-child(odd) {
+                background-color: #1f2937;
+            }
+
+            #parent {
+                transition: margin-left 1s ease-out;
+                overflow-x: scroll;
+            }
+        </style>
+        <link rel="stylesheet" href="{% static 'resources/css/resources.css' %}">
+    {% endblock %}
+    {% block body %}
+    <div class="md:ml-64" id="parent">
+        <div class="flex mt-20">
+            <p class="font-sans text-neutral-100 text-xl md:text-2xl p-2 flex self-start"> Resources: </p>
+        </div>
+        <p class="text-base font-sans text-neutral-100 flex self-start ml-2">These are the various guides, reports, and best practices that have been contributed by various users.</p>
+        <table class="mt-2 ml-2 md:mt-4 w-full md:w-8/12 lg:w-9/12 2xl:w-11/12">
+            <thead>
+                <tr>
+                    <th>Serial No.</th>
+                    <th class="title">Title</th>
+                    <th class="description">Description</th>
+                    <th>File</th>
+                    <th>Uploaded At</th>
+                    <th>Uploaded By</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for submission in submissions %}
+                    <tr class="md:text-center">
+                        <td>{{ forloop.counter }}.</td>
+                        <td class="title"><a href="{{ submission.file.url }}" target="_blank" class="underline">{{ submission.title }}</a></td>
+                        <td class="description text-sm md:text-base">{{ submission.description }}</td>
+                        <td><a href="{{ submission.file.url }}" download class="underline">Download</a> ({{ submission.file.size|filesizeformat }})</td>
+                        <td>{{ submission.uploaded_at }}</td>
+                        <td><a href="/profile/{{ submission.user.username }}" class="underline">{{ submission.user.username }}</a></td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-neutral-200">No submissions found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% block scripts %}
+        <script>
+            if(window.screen.width > 768) {
+                document.addEventListener('DOMContentLoaded', () => {
+                    const parent = document.getElementById('parent');
+                    const nav = document.getElementById('logo-sidebar');
+                    console.log(parent.classList);
+
+                    document.getElementById('navbar-toggle').addEventListener('click', function() {
+                        if(nav.classList.contains('sidebar-collapsed')) {
+                            parent.classList.replace('md:ml-64', 'md:ml-24');
+                        }
+                        else {
+                            parent.classList.replace('md:ml-24', 'md:ml-64');
+                        }
+                    })
+                })
+            }
+            else {
+                document.getElementById('parent').classList.replace('md:ml-64', 'ml-0');
+            }
+        </script>
+    {% endblock %}
+    {% endblock %}

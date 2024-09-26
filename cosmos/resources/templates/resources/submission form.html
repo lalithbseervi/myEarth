@@ -1,0 +1,87 @@
+{% extends 'resources/base.html' %}
+{% load static %}
+    {% block title %} Submit A Resource | {% endblock %}
+    {% block head %}
+      <style>
+        body {
+          background-color: #8D98A8;
+        }
+
+        button {
+          transition: .4s;
+        }
+
+        button:hover {
+          box-shadow: 4px 4px 0px rgb(0, 0, 0);
+        }
+
+        .font-helvetica {
+          font-family: Helvetica, sans-serif;
+        }
+
+        form {
+          box-sizing: content-box;
+        }
+      </style>
+    <link rel="stylesheet" href="{% static 'resources/css/submissions.css' %}">
+    {% endblock %}
+    {% block body %}
+    <div class="mt-20 md:mt-16">
+        <h1 class="p-2 text-4xl font-bold m-auto items-center justify-center flex">Submission Form</h1> <!-- <hr class="h-px my-2 bg-gray-200 border-0 dark:bg-gray-900"> -->
+    </div>
+    <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data" class="p-2 mt-4 md:mt-8 border-2 border-gray-950 rounded-lg max-w-xs md:max-w-2xl xl:max-w-3xl h-full max-h-screen flex flex-col items-center justify-center m-auto font-helvetica">
+      {% csrf_token %}
+      <div class="flex w-full mb-4 self-start">
+        <div class="flex-1 w-56 md:w-1/2">
+          <div class="w-full p-2 md:p-5 bg-gray-700 rounded-lg mt-4">
+            <label class="block text-white text-sm font-bold mb-2" for="title">Title</label>
+            <input
+              class="text-sm custom-input w-full px-4 py-2 border border-gray-300 rounded-lg shadow-sm transition duration-300 ease-in-out transform focus:-translate-y-1 focus:outline-blue-300 hover:shadow-lg hover:border-blue-300 bg-gray-700"
+              placeholder="Title of the pdf"
+              type="text"
+              id="unique-input"
+              name="title"
+              maxlength="127"
+              required
+            />
+          </div>
+        </div>
+      </div>
+      <div class="flex w-full self-start mb-2">
+        <div class="flex-1 w-56 md:w-1/2">
+          <div class="w-full p-2 md:p-4 bg-gray-700 rounded-lg">
+            <label for="description" class="block mb-2 text-sm font-bold text-white">Description</label>
+            <textarea id="description" name="description" rows="5" cols="40" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Explain what the resource is about"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="flex flex-row items-center justify-center w-full m-auto">
+        <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+            <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2"/>
+                </svg>
+                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span> or drag and drop</p>
+                <p class="text-xs text-gray-500 dark:text-gray-400">.pdf, .docx, .epub, .odt</p>
+            </div>
+            <input id="dropzone-file" type="file" name="file" class="hidden" required/>
+            <p class="inline-block" id="file-name"></p>
+        </label>
+      </div>
+      <div class="m-2 md:m-4 w-full">
+        <button type="submit" class="arc-btn-retro border-2 rounded-md bg-green-500 border-gray-900 p-2 m-auto items-center justify-center flex font-helvetica w-full">Submit Form</button>
+      </div>
+    </form>
+    {% block scripts %}
+      <script>
+        const input = document.getElementById('dropzone-file');
+        input.addEventListener('change', () => {
+          var file = event.target.files[0]
+          var fileName = file.name;
+          console.log(fileName);
+          // var fileName = this.file.length > 0 ? this.file.name : 'No file chosen';
+          document.getElementById('file-name').innerHTML += fileName + `<br>`;
+        })
+      </script>
+    {% endblock %}
+    {% endblock %}

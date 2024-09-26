@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load urlify %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+    {% block title %}
+        {{ instance.title }} {{ block.super }}
+    {% endblock %}
+
+    {% block head %}
+        <style>
+            input[type=submit] {
+                cursor: pointer;
+            }
+        </style>
+        <link rel="stylesheet" href="{% static 'posts/css/post_detail.css' %}">
+    {% endblock %}
+
+    {% block post_detail_link %}
+    <li><a href="{{ instance.get_absolute_url }}" class="text-blue-500 hover:underline">{{ instance.title }}</a></li>
+    {% endblock %}
+
+  {% block content %}
+  <div class="w-9/12 sm:w-3/4 mx-auto p-3 md:p-0 mt-20 sm:mt-16">
+    <h1 class="text-white text-2xl mt-2">{{ title }}</h1>
+        {% if instance.user %}
+            <p class="text-gray-200 text-base md:mt-1"><a href="/profile/{{ instance.user }}" class="underline" target="_blank">{{ instance.user }}</a> | {{ instance.publish }}</p>
+        {% endif %}
+    <div class="mt-4">
+        {% if instance.user == current_user or instance.user.is_authenticated == current_user %}
+            <div class="mt-4 text-sm">
+                <form action="edit/" method="get">
+                    <button class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" type="submit">Edit Question</button>
+                </form>
+                <form class="ml-2 mt-2" action="delete/" method="get">
+                    <button class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600" type="submit">Delete Question</button>
+                </form>
+            </div>
+        {% endif %}
+        <div class="post-detail-item text-[#3CB371] mt-2">
+            <p>{{ instance.get_markdown }}</p>
+        </div>
+
+            {% for comment in comments %}
+                <blockquote class="border-l-4 border-cornflowerblue pl-4 my-4">
+                    <p class="text-[#B0C4DE]">{{ comment.content }}</p>
+                    <footer class="text-gray-400 text-sm">
+                        <a href="/profile/{{ comment.user }}" class="underline" target="_blank">{{ comment.user }}</a> -- {{ comment.timestamp|timesince }} ago
+                        {% if comment.children.count > 0 %}
+                        | {{ comment.children.count }} Comment{% if comment.children.count > 1 %}s{% endif %}
+                        {% endif %}
+                        {% if request.user.is_authenticated %}| <button type="submit" data-form-id="form_{{ comment.id }}" class="toggle-form-btn hover:underline text-blue-500">Show comment form</button>{% endif %}
+                        | {% if request.user == comment.user %} <a href="{{ comment.get_delete_url }}" class="underline text-blue-500">Delete comment</a>{% endif %}
+                   </footer>
+
+                    <div class="mt-4">
+                        {% for child_comment in comment.children %}
+                        <blockquote class="border-l-4 border-cornflowerblue pl-4 my-2">
+                            <p class="text-[#B0C4DE]">{{ child_comment.content }}</p>
+                            <footer class="text-gray-400 text-sm">
+                                <a href="/profile/{{ child_comment.user }}" class="underline" target="_blank">{{ child_comment.user }}</a> -- {{ child_comment.timestamp|timesince }} ago |
+                                {% if request.user == child_comment.user %}| <a href="{{ child_comment.get_delete_url }}" class="underline text-blue-500">Delete comment</a>{% endif %}
+                            </footer>
+                        </blockquote>
+                        {% endfor %}
+
+                        {% if request.user.is_authenticated %}
+                            <form method="POST" action="." class="hidden" id="form_{{ comment.id }}">
+                                {% csrf_token %}
+                                {{ comment_form|crispy }}
+                                <input type="hidden" name="parent_id" value="{{ comment.id }}">
+                                <input type="submit" value="Add Comment" class="bg-blue-500 text-white text-sm px-4 py-2 rounded hover:bg-blue-600">
+                            </form>
+                        {% else %}
+                            <p class="text-gray-400">You must login to answer</p>
+                        {% endif %}
+                    </div>
+                </blockquote><hr class="my-4" />
+            {% endfor %}
+
+        {% if request.user.is_authenticated and request.user == instance.user %}
+            <form method="POST" action="." class="hidden">
+                {% csrf_token %}
+                {{ comment_form|crispy }}
+                <input type="submit" value="Add Comment" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            </form>
+        {% elif request.user != instance.user and request.user.is_authenticated %}
+            <h3 class="text-white text-lg">Add Comment</h3>
+            <form method="POST" action=".">
+                {% csrf_token %}
+                {{ comment_form|crispy }}
+                <input type="submit" value="Add Comment" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            </form><hr class="my-4" />
+        {% else %}
+            <p class="text-gray-400"><a href="{% url 'login' %}" class="underline">Login</a> or <a href="{% url 'register' %}" class="underline">Register</a> to comment.</p>
+        {% endif %}
+        </div>
+    </div>
+    {% block scripts %}
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const toggleButtons = document.querySelectorAll(".toggle-form-btn");
+
+                toggleButtons.forEach(button => {
+                    button.addEventListener("click", function() {
+                        const formId = this.getAttribute("data-form-id");
+                        const form = document.getElementById(formId);
+
+                        if (form.classList.contains("hidden")) {
+                            form.classList.remove("hidden");
+                            this.textContent = "Hide comment form";
+                        } else {
+                            form.classList.add("hidden");
+                            this.textContent = "Show comment form";
+                        }
+                    });
+                });
+            });
+        </script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                var labels = document.getElementsByTagName('label');
+                for (var i = 0; i < labels.length; i++) {
+                    labels[i].style.color = 'white';
+                }
+            })
+    </script>
+    {% endblock %}
+    {% endblock %}

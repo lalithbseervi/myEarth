@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+    {% load static %}
+    {% block title %} {{ username }} {% endblock %}
+    {% block head %}
+        <link rel="stylesheet" href="{% static 'accounts/css/profile.css' %}">
+        <style>
+            div.card {
+                margin-left: auto;
+                margin-right: auto;
+                width: 25%;
+                margin-top: 5rem;
+            }
+
+            @media only screen and (min-width: 300px) and (max-width: 600px) {
+                div.card {
+                    width: 91.666%;
+                }
+            }
+        </style>
+    {% endblock %}
+    {% block content %}
+        <div class="card p-6 text-neutral-100 bg-kinda-teal rounded-lg w-9/12 my-auto mx-auto">
+            <h1 class="text-3xl font-semibold mb-0">{{ username }}</h1>
+            <p class="text-gray-600">{{ email }}</p>
+            <pre class="text-sm mb-4">{{ tag }}</pre>
+
+            <div class="space-y-2 mb-4">
+                <p><span class="text-lg">Questions Asked:</span> {{ post_count }}</p>
+                <p class="text-lg">Recently asked:</p>
+                <ul class="list-none pl-5 space-y-1">
+                    <blockquote class="border-l-4 border-white pl-4 my-4">
+                        {% for post in posts %}
+                                <li class="mb-1"><a href="{{ post.get_absolute_url }}" class="underline">{{ post.title }}</a></li>
+                    {% empty %}
+                        <li>No posts made</li>
+                    {% endfor %}
+                    </blockquote>
+                </ul>
+                <p><span class="text-lg">Resources Uploaded:</span> {{ resources_uploaded }}</p>
+                <ul class="list-none pl-5 space-y-1">
+                    <blockquote class="border-l-4 border-white pl-4 my-4">
+                        {% for submission in submissions %}
+                            <li class="mb-1"><a href="{{ submission.file.url }}" class="underline">{{ submission.title }}</a></li>
+                    {% empty %}
+                        <li>No files uploaded</li>
+                    {% endfor %}
+                    </blockquote>
+                </ul>
+                <p><span>Comments Posted: {{ comments_count }}</span></p>
+            </div>
+            {% if request.user.username == username %}<a href="{% url 'edit_profile' username=username %}" class="text-blue-500 hover:underline">Edit Profile</a>{% endif %}
+        </div>
+    {% block scirpts %}
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                document.body.style = "background-color: #0d1117;";
+                document.body.classList += 'flex items-center justify-center h-screen';
+            })
+        </script>
+    {% endblock %}
+    {% endblock %}

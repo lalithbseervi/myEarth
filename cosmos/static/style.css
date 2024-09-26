@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+@media print {
+	body {
+		margin: 0 !important;
+	}
+}
+
+.main-container {
+	font-family: 'Lato';
+	width: fit-content;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.ck-content {
+	font-family: 'Lato';
+	line-height: 1.6;
+	word-break: break-word;
+}
+
+/* .editor-container_classic-editor .editor-container__editor {
+	min-width: 795px;
+	max-width: 795px;
+} */
+
+/* .editor-container_include-block-toolbar {
+	margin-left: 42px;
+} */
+
+div.arc-btn-retro > input:hover {
+	cursor: pointer;
+}
+
+@media screen and (max-width: 360px) {
+	.main-container {
+		width: 308px;
+		max-width: 308px;
+	}
+}
+
+@media screen and (max-width: 375px) {
+	.main-container {
+		width: 320px;
+		max-width: 320px;
+	}
+}
+
+
+@media screen and (max-width: 384px) {
+	.main-container {
+		width: 330px;
+		max-width: 330px;
+	}
+}
+
+@media screen and (max-width: 390px) {
+	.main-container {
+		width: 332px;
+	}
+}
+
+@media screen and (max-width: 412px) {
+	.main-container {
+		width: 360px;
+	}
+}
+
+@media screen and (max-width: 430px) {
+	.main-container {
+		width: 372px;
+	}
+}
+
+@media screen and (min-width: 1024px) {
+	.main-container {
+		min-width: 800px;
+		max-width: 1800px;
+	}
+}

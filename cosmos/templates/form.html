@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load static %}
+
+    {% block title %} {{ title }} {% endblock %}
+
+    {% block head %}
+        <style>
+            div.arc-btn-retro {
+                transition: .4s;
+            }
+
+            div.arc-btn-retro:hover {
+                box-shadow: 3px 3px 0px rgb(0, 0, 0);
+            }
+
+            label.mb-2 {
+                color: var(--text);
+            }
+
+            input.textinput, input.passwordinput {
+                background-color: var(--primary-col);
+                color: var(--text);
+            }
+
+            input.passwordinput {
+                color: var(--text);
+            }
+
+            a {
+                text-decoration-line: underline;
+                text-decoration-thickness: 2px;
+            }
+
+            p > a {
+                text-decoration-line: underline;
+            }
+        </style>
+        <link rel="stylesheet" href="{% static 'posts/css/form.css' %}">
+    {% endblock %}
+
+{% block content %}
+    <h1 class="p-2 md:p-4 text-bold text-white font-sans text-2xl md:text-3xl mt-16 w-9/12 text-center">{{ title }}</h1>
+    <form action="" method="post" name="form" enctype="multipart/form-data" class="p-2 mt-4 md:mt-16 border-2 border-gray-950 rounded-lg max-w-xs md:max-w-xl h-full max-h-screen flex flex-col items-center justify-center m-auto font-helvetica">
+        {% crispy form %}
+        <div class="flex justify-center text-neutral-100 text-lg sm:text-base mt-2">
+        {% if title == 'Login' %}
+            <p><a href="{% url 'register' %}">Need to sign up?</a> or <a href="{% url 'index' %}">Take me back to homepage</a></p>
+        {% elif title == 'Register' %}
+            <p><a href="{% url 'login' %}">Already have an account?</a> or <a href="{% url 'index' %}">Take me back to homepage</a></p>
+        {% else %}
+            <p><a href="{% url 'index' %}">Take me back to homepage</a></p>
+        {% endif %}
+        </div>
+    </form>
+    {% block scripts %}
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                var input = document.getElementsByClassName('btn-primary')[0];
+                input.style.width = '100%';
+                input.classList.add('cursor-pointer');
+            })
+        </script>
+    {% endblock %}
+{% endblock %}

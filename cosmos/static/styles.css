@@ -1,0 +1,325 @@
+:root {
+    --bg-gray-50: rgb(249 250 251);
+    --placeholder-neutral-400: #9CA3AF;
+    --border-neutral-200: rgb(229 229 229);
+    --border-neutral-600: rgb(82 82 82);;
+    --text-neutral-50: rgb(250 250 250);
+    --neutral-950: #0a0a0a;
+}
+
+.neutral-950 {
+    border-color: var(--neutral-950);
+}
+
+/* container settings */
+
+.container {
+    width: 100%;
+}
+
+/* background settings */
+
+.bg-white { 
+    background-color: #fff; 
+}
+
+.bg-gradient-purple-left {
+    background-image: linear-gradient(to right, #8b5cf6, #4f46e5);
+}
+
+.bg-gradient-purple-left-dark {
+    background-image: linear-gradient(to right, #4b0082, #9b59b6); 
+}
+
+/* transforms */
+
+.transition {
+    transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+}
+
+.duration-300 {
+    transition-duration:.3s
+}
+
+/* input settings */
+
+input.py-2\.5.px-3\.5.text-sm.outline-none:hover {
+    background-color: var(--bg-gray-50);
+}
+
+input::placeholder {
+    color: var(--placeholder-neutral-400);
+}
+
+input.py-2\.5.px-3\.5.text-sm.outline-none:focus-within {
+    border-color: var(--border-neutral-600);
+}
+
+/* outline settings */
+
+.outline-none {
+    outline: 2px solid transparent;
+    outline-offset: 2px
+}
+
+/* textarea::placeholder {
+    color: var(--neutral-400);
+} */
+
+/* border settings */
+
+.border { 
+    border-width: 1px; 
+}
+
+.border-neutral-200 {
+    border-color: var(--border-neutral-200);
+}
+
+.rounded-xl {
+    border-radius: 0.75rem;
+}
+
+.rounded-lg {
+    border-radius: 0.5rem;
+}
+
+/* flex settings */
+
+.flex {
+    display: flex;
+}
+
+.flex-wrap {
+    flex-wrap: wrap;
+}
+
+.inline-flex {
+    display: inline-flex;
+}
+
+/* position settings */
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+/* margins */
+
+.-m-2 {
+    margin: -.5rem;
+}
+
+.mx-auto { 
+    margin-right: auto; 
+    margin-left: auto; 
+}
+
+.ml-auto {
+    margin-left: auto;
+}
+
+.mb-2\.5 {
+    margin-bottom: 0.625rem;
+}
+
+/* width settings */
+
+.w-full {
+    max-width: 100%;
+}
+
+/* height settings */
+
+.h-full {
+    max-height: 100%;
+}
+
+/* paddings */
+
+.p-2 {
+    padding: 0.5rem;
+}
+
+.p-6 { 
+    padding: 1.5rem;
+}
+
+.px-4 { 
+    padding-right: 1rem; 
+    padding-left: 1rem; 
+}
+
+.py-2\.5 {
+    padding-top: 0.625rem;
+    padding-bottom: 0.625rem;
+}
+
+.px-3\.5 {
+    padding-right: 0.875rem;
+    padding-left: 0.875rem;
+}
+
+/* font customization */
+
+.font-hairline {
+    font-weight: 100;
+}
+
+.font-thin {
+    font-weight: 200;
+}
+
+.font-light { 
+    font-weight: 300;
+}
+
+.font-normal {
+    font-weight: 400;
+}
+
+.font-medium { 
+    font-weight: 500;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.font-extrabold { 
+    font-weight: 800;
+}
+
+.font-black {
+    font-weight: 900;
+}
+
+/* font styles */
+
+.helvetica {
+    font-family: Helvetica, sans-serif;
+}
+
+/* text sizes */
+
+.text-xs {
+    font-size: .75rem;
+}
+
+.text-sm {
+    font-size: .875rem;
+}
+
+.text-base {
+    font-size: 1rem;
+}
+
+.text-lg {
+    font-size: 1.125rem;
+}
+
+.text-xl {
+    font-size: 1.25rem;
+}
+
+.text-2xl {
+    font-size: 1.5rem;
+}
+
+.text-3xl {
+    font-size: 1.875rem;
+}
+
+.text-4xl {
+    font-size: 2.25rem;
+}
+
+.text-5xl {
+    font-size: 3rem;
+}
+
+.text-6xl {
+    font-size: 4rem;
+}
+
+/* text colors */
+.text-neutral-50 {
+    color: var(--text-neutral-50);
+}
+
+@media (min-width: 640px) {
+    .container {
+        max-width: 640px;
+    }
+
+    .sm\:w-1\/2 {
+        width: 50%;
+    }
+
+    .sm\:w-auto {
+        width: auto;
+    }
+
+    .max-w-md {
+        max-width: 28rem;
+    }
+
+    .flex-1{
+        flex: 1 1 0%;
+    }
+
+    .sm\:mb\-0 {
+        margin-bottom: 0rem;
+    }
+
+    .text-sm { 
+        font-size: .875rem; 
+    }
+
+    .sm\:border-r-0 {
+        border-right-width: 0;
+    }
+
+    .sm\:rounded-br-none {
+        border-bottom-right-radius: 0;
+    }
+
+    .sm\:rounded-tr-none {
+        border-top-right-radius: 0;
+    }
+
+    .sm\:rounded-tl-none {
+        border-top-left-radius: 0;
+    }
+
+    .sm\:rounded-bl-none {
+        border-bottom-left-radius:0;
+    }
+}
+@media (min-width: 768px) {
+    .container {
+        max-width: 768px;
+    }
+}
+@media (min-width: 1024px) {
+    .container {
+        max-width: 1024px;
+    }
+}
+@media (min-width: 1280px) {
+    .container {
+        max-width: 1280px;
+    }
+}
